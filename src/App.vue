@@ -1,23 +1,31 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+  <div id="app" class="has-navbar-fixed-top">    
+    <navibar></navibar>
+    <content-container>
+        <router-view/>
+    </content-container>
   </div>
 </template>
 
 <script>
+import Navibar from '@/components/Navibar'
+import ContentContainer from "@/components/ContentContainer"
+
 export default {
-  name: 'app'
+  name: 'app',
+  components:{Navibar, ContentContainer}
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  width:100%;
+  height:100%;
+  margin:0px;
+  padding:0px;
+}
+/* need to add this here since Bulma only accepts it if its added to HTML, which is what we're not doing */
+#app.has-navbar-fixed-top {
+  padding-top: 3.25rem;
 }
 </style>
