@@ -10,17 +10,18 @@
          </div>
 
          <div class="navbar-menu">
-               <div class="navbar-start">
-                  <!-- navbar items -->
-                  <a class="navbar-item">
-                     Home
-                  </a>
-               </div>
+            <div class="navbar-start">
+                  <router-link to="/" class="navbar-item">
+                        Home
+                  </router-link>
+                  <router-link to="/stories" class="navbar-item">
+                        Stories
+                  </router-link>
+            </div>
 
-               <div class="navbar-end">
-                  <!-- navbar items -->
-               </div>
-            <!-- navbar start, navbar end -->
+            <div class="navbar-end">
+            <!-- navbar items -->
+            </div>
          </div>
       </div>      
    </nav>
