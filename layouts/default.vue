@@ -4,16 +4,18 @@
     <content-container>
       <nuxt/>
     </content-container>
+    <modal-shell></modal-shell>
   </div>
 </template>
 
 <script>
 import Navibar from '@/components/Navibar'
 import ContentContainer from "@/components/ContentContainer"
+import ModalShell from "~/components/modals/ModalShell";
 
 export default {
   name: 'app',
-  components:{Navibar, ContentContainer}
+  components:{Navibar, ContentContainer,ModalShell}
 }
 </script>
 

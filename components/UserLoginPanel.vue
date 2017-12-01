@@ -6,7 +6,7 @@
 			</a>
 		   </template>
 		   <template v-else>
-			<a href="#" class="navbar-item">
+			<a href="#" @click="login" class="navbar-item">
 			   Login
 			</a>
 			<a href="#" class="navbar-item">
@@ -18,13 +18,16 @@
 
 <script>
 export default {
-   name:"user-login-panel",
-   computed(){
-	   return {
-         isLoggedIn(){
-            return false;
-         }
-	   }
+	name:"user-login-panel",
+	methods: {
+		async login(){
+			this.$store.commit("modal/open_modal", "LOGIN")
+		}
+	},
+   computed:{
+		isLoggedIn(){
+			return this.$store.state.auth.is_logged_in;
+		}
    }
 }
 </script>
