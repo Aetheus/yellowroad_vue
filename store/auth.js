@@ -1,3 +1,5 @@
+import JSCookie from "js-cookie";
+
 export const state = () => ({
    user : null,
    auth_token : null,
@@ -9,7 +11,10 @@ export const state = () => ({
 })
 
 export const mutations = {
-   setLoggedInUser(state, user, auth_token){
+   setToken(state,auth_token){
+      state.auth_token = auth_token;
+   },
+   setLoggedInUser(state, {user, auth_token}){
       state.user = user;
       state.is_logged_in = true;
       state.auth_token = auth_token;
@@ -31,17 +36,48 @@ export const mutations = {
 }
 
 export const actions = {
-   async login( {commit, dispatch}, {username, password}){
+   async login( {commit, dispatch, isClient}, {username, password}){
       try{
          let data = (await this.$axios.$post("/users/login", { username: username, password:password })).data
-         commit("setLoggedInUser", data.user, data.token)
+         
+         commit("setLoggedInUser", {
+            user: data.user, 
+            auth_token: data.token
+         })
          commit("clearLoginAttemptFailed");
+         if (isClient) {
+            JSCookie.set("auth_token", data.token, {expires:30})
+         }
 
          return true;
-      } catch(err){
-         console.error(err);
-         commit("setLoginAttemptFailed", err);
+      } catch(err){         
+         if (err.response && err.response.data && err.response.data.message){
+            commit("setLoginAttemptFailed", err.response.data.message);
+         } else {
+            commit("setLoginAttemptFailed", "Unknown error occurred while attempting to login");
+         }
+         return false;
+      }
+   },
 
+   //TODO: don't duplicate the logic of Login - centralize it instead
+   async verifyToken( {commit, isClient}, token ){
+      try {
+         let data = (await this.$axios.$post("/users/verify", { auth_token: token })).data
+
+         commit("setLoggedInUser", {
+            user: data.user,
+            auth_token: data.token
+         })
+         commit("clearLoginAttemptFailed");
+         if (isClient) {
+            JSCookie.set("auth_token", data.token, { expires: 30 })
+         }
+
+         return true;
+      } catch (err) {
+         console.log("here again")
+         commit("removeLoggedInUser");
          return false;
       }
    },
@@ -50,5 +86,11 @@ export const actions = {
       //async because we may want to log logouts on server side someday
       commit("removeLoggedInUser");
       commit("clearLoginAttemptFailed");
-   }
+
+      if (isClient) {
+         JSCookie.remove("auth_token");
+      }
+
+      return true;
+   }   
 }  

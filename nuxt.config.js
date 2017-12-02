@@ -13,6 +13,9 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  router: {
+    middleware: "auth_cookie_to_store"
+  },
   modules: [
     '@nuxtjs/axios',
   ],
