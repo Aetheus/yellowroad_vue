@@ -1,6 +1,6 @@
 <template>
   <div class="user-navbar-widget is-outlined button" :title="username">
-      <img class="image user-navbar-widget_photo" :src="photo_url" alt="">
+      <img class="image user-navbar-widget_photo" src="~/assets/img/hand.jpeg" alt="">
       <div class="user-navbar-widget_username has-text-centered">
          <span>{{ username }}</span>
       </div>
@@ -27,7 +27,7 @@ export default {
       photo_url(){
          //TODO : implement this
          //this is temporary anyway, but for attribution, this was originally from : https://www.pexels.com/photo/adult-architecture-buildings-city-380283/
-         return "https://static.pexels.com/photos/380283/pexels-photo-380283.jpeg"
+         return "~/assets/hand.jpeg"
       }
 
    }
