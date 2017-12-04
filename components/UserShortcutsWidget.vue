@@ -1,11 +1,9 @@
 <template>
    <div class="navbar-item">
-      <template v-if="isLoggedIn">
-			<a href="#" class="navbar-item">
-			   Logout
-			</a>
-		   </template>
-		   <template v-else>
+      <template v-if="isLoggedIn">			
+			<user-pill is-current-user="true" />
+		</template>
+		<template v-else>
 			<a href="#" @click="login" class="navbar-item">
 			   Login
 			</a>
@@ -17,8 +15,11 @@
 </template>
 
 <script>
+import UserPill from "~/components/UserPill"
+
 export default {
-	name:"user-login-panel",
+	name:"user-shortcuts-widget",
+	components:{UserPill},
 	methods: {
 		async login(){
 			this.$store.commit("modal/open_modal", "LOGIN")
