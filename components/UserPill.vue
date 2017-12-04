@@ -26,7 +26,8 @@ export default {
 
       photo_url(){
          //TODO : implement this
-         return `https://previews.123rf.com/images/triken/triken1608/triken160800028/61320729-Male-avatar-profile-picture-Default-user-avatar-guest-avatar-Simply-human-head-Vector-illustration-i-Stock-Vector.jpg`;
+         //this is temporary anyway, but for attribution, this was originally from : https://www.pexels.com/photo/adult-architecture-buildings-city-380283/
+         return "https://static.pexels.com/photos/380283/pexels-photo-380283.jpeg"
       }
 
    }
@@ -42,6 +43,9 @@ export default {
 		border-radius: 50%;
 		display:table-cell;
 		vertical-align: middle;
+
+      height: 28px;
+      width: 28px;
 	}
 	.user-navbar-widget_username {
 		display:table-cell;
