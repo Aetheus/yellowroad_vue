@@ -1,10 +1,13 @@
 <template>
    <div class="navbar-item">
-      <template v-if="isLoggedIn">			
-			<user-pill is-current-user="true" />
-		</template>
+      <div class="user-shortcuts-wrapper" v-if="isLoggedIn">	
+			<user-pill @click.native="toggleDropdown" is-current-user="true" />
+			<div class="user-shortcuts-dropdown box" v-show="dropdownOpen">
+				<a href="#" @click="logout">Logout</a>
+			</div>
+		</div>
 		<template v-else>
-			<a href="#" @click="login" class="navbar-item">
+			<a href="#" @click="openLoginModal" class="navbar-item">
 			   Login
 			</a>
 			<a href="#" class="navbar-item">
@@ -19,10 +22,22 @@ import UserPill from "~/components/UserPill"
 
 export default {
 	name:"user-shortcuts-widget",
+	props:[],
 	components:{UserPill},
+	data(){
+		return {
+			dropdownOpen : false
+		}
+	},
 	methods: {
-		async login(){
+		openLoginModal(){
 			this.$store.commit("modal/open_modal", "LOGIN")
+		},
+		async logout(){
+			this.$store.dispatch("auth/logout")
+		},
+		toggleDropdown(){
+			this.dropdownOpen = !this.dropdownOpen;
 		}
 	},
    computed:{
@@ -33,3 +48,14 @@ export default {
 }
 </script>
 
+<style>
+.user-shortcuts-wrapper{
+	position:relative;
+}
+.user-shortcuts-dropdown{
+	position: absolute;
+	top: 100%;
+	left: 0px;
+	width:100%;
+}
+</style>

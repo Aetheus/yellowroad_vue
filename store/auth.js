@@ -1,5 +1,3 @@
-import JSCookie from "js-cookie";
-
 export const state = () => ({
    user : null,
    auth_token : null,
@@ -36,7 +34,7 @@ export const mutations = {
 }
 
 export const actions = {
-   async login( {commit, dispatch, isClient}, {username, password}){
+   async login( {commit, dispatch}, {username, password}){
       try{
          let data = (await this.$axios.$post("/users/login", { username: username, password:password })).data
          
@@ -44,24 +42,26 @@ export const actions = {
             user: data.user, 
             auth_token: data.token
          })
-         commit("clearLoginAttemptFailed");
-         if (isClient) {
-            JSCookie.set("auth_token", data.token, {expires:30})
-         }
+         commit("clearLoginAttemptFailed")
 
-         return true;
+         return {
+            login_success : true,
+            token : data.token
+         };
       } catch(err){         
          if (err.response && err.response.data && err.response.data.message){
             commit("setLoginAttemptFailed", err.response.data.message);
          } else {
             commit("setLoginAttemptFailed", "Unknown error occurred while attempting to login");
          }
-         return false;
+         return {
+            login_success: false
+         };
       }
    },
 
    //TODO: don't duplicate the logic of Login - centralize it instead
-   async verifyToken( {commit, isClient}, token ){
+   async verifyToken( {commit}, token ){
       try {
          let data = (await this.$axios.$post("/users/verify", { auth_token: token })).data
 
@@ -70,24 +70,21 @@ export const actions = {
             auth_token: data.token
          })
          commit("clearLoginAttemptFailed");
-         if (isClient) {
-            JSCookie.set("auth_token", data.token, { expires: 30 })
-         }
 
          return true;
       } catch (err) {
-         console.log("here again")
          commit("removeLoggedInUser");
          return false;
       }
    },
 
-   async logout( {commit, dispatch} ){
+   async logout({ commit, dispatch} ){
       //async because we may want to log logouts on server side someday
       commit("removeLoggedInUser");
       commit("clearLoginAttemptFailed");
 
       if (isClient) {
+         console.log(JSCookie.get())
          JSCookie.remove("auth_token");
       }
 

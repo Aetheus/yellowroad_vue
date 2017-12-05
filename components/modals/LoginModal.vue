@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import JSCookie from "js-cookie";
 export default {
    data(){
       return {
@@ -26,8 +27,9 @@ export default {
    },
    methods : {
       async login() {
-         let isNowLoggedIn = await this.$store.dispatch("auth/login", {username:this.username,password: this.password});
-         if(isNowLoggedIn){
+         let {login_success, token} = await this.$store.dispatch("auth/login", {username:this.username,password: this.password});
+         if(login_success){                     
+            JSCookie.set("auth_token", token, {expires:30})
             this.close();
          }
       },
