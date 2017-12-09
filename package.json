@@ -20,7 +20,8 @@
     "cookie": "^0.3.1",
     "cookie-parser": "^1.4.3",
     "js-cookie": "^2.2.0",
-    "nuxt": "^1.0.0-rc11"
+    "nuxt": "^1.0.0-rc11",
+    "vue-focus": "^2.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

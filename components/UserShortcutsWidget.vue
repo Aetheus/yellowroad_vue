@@ -2,7 +2,9 @@
    <div class="navbar-item">
       <div class="user-shortcuts-wrapper" v-if="isLoggedIn">	
 			<user-pill @click.native="toggleDropdown" is-current-user="true" />
-			<div class="user-shortcuts-dropdown box" v-show="dropdownOpen">
+			<div class="user-shortcuts-dropdown box" tabindex="0" 
+				v-show="dropdownOpen"				
+			>
 				<a href="#" @click="logout">Logout</a>
 			</div>
 		</div>
