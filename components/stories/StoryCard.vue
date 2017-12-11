@@ -3,7 +3,15 @@
       <header class="card-header">
          <p class="card-header-title">
             <img class="image is-32x32 story-card__preview-image" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-            <span> {{story.title}} </span>&nbsp;<span>by <a>{{story.author.name}}</a></span>
+            <span> 
+              <router-link :to="{ path: `/stories/${story.id}` }">
+                  {{story.title}} 
+              </router-link>              
+                by 
+              <router-link :to="{ path: `/users/${story.creator.id}` }">
+                  {{story.creator.name}}
+              </router-link>
+            </span>
          </p>
          <a href="#" class="card-header-icon" aria-label="more options">
             <span class="icon">
@@ -80,7 +88,8 @@ export default {
         return {
            id: 12,
            title : "Story Title",
-           author : {
+           creator : {
+              id: 134,
               name : "Bob Newman"
            },
            genres : [ 
