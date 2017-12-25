@@ -1,6 +1,6 @@
 <template>
    <section>
-      <story-card v-for="temp in [1,2,3,4,5,6,7,8,9,10]" :key="temp">
+      <story-card v-for="story_id in storyIds" :key="story_id" :story-id="story_id">
       </story-card>
    </section>
 </template>
@@ -10,6 +10,7 @@ import StoryCard from "~/components/stories/StoryCard"
 
 export default {
   name:"stories-listing",
+  props : ["story-ids"],
   components:{StoryCard}
 }
 </script>

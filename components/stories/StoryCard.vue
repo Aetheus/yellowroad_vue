@@ -9,7 +9,7 @@
               </router-link>              
                 by 
               <router-link :to="{ path: `/users/${story.creator.id}` }">
-                  {{story.creator.name}}
+                  {{story.creator.username}}
               </router-link>
             </span>
          </p>
@@ -83,9 +83,11 @@
 
 <script>
 export default {
+  props :["storyId"],
   computed : {
      story(){
-        return {
+        //TODO: remove this
+        const placeholderStory = {
            id: 12,
            title : "Story Title",
            creator : {
@@ -101,6 +103,8 @@ export default {
               { name : "torture"}, { name : "murder"}, { name : "closed circle"}
            ]
         }
+        let story = this.$store.state.stories.map[this.storyId];
+        return Object.assign({},placeholderStory,story);
      },
      is_a_favourite(){
         return true;
