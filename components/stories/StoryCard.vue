@@ -34,7 +34,7 @@
                <span> Chapters: 
                   <router-link 
                      :to="{ path: `/stories/${story.id}/chapters` }">
-                     {{story.chapters.length}} 
+                     {{story.chapter_count}} 
                   </router-link>                     
                </span>
                <span> Language: 
@@ -97,7 +97,6 @@ export default {
            genres : [ 
                {name: "Horror"}, {name: "Adventure"}, {name: "Comedy"}
            ],
-           chapters : [{},{},{},{},{},{},{}],
            language: "English",
            tags : [
               { name : "torture"}, { name : "murder"}, { name : "closed circle"}
