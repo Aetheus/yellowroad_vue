@@ -4,7 +4,8 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 const _6cd6e8bc = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
-const _06da2b3d = () => import('../pages/stories.vue' /* webpackChunkName: "pages/stories" */).then(m => m.default || m)
+const _55f69000 = () => import('../pages/stories/index.vue' /* webpackChunkName: "pages/stories/index" */).then(m => m.default || m)
+const _043c894f = () => import('../pages/chapters/create.vue' /* webpackChunkName: "pages/chapters/create" */).then(m => m.default || m)
 
 
 
@@ -47,8 +48,13 @@ export function createRouter () {
 		},
 		{
 			path: "/stories",
-			component: _06da2b3d,
+			component: _55f69000,
 			name: "stories"
+		},
+		{
+			path: "/chapters/create",
+			component: _043c894f,
+			name: "chapters-create"
 		}
     ],
     fallback: false
