@@ -24,10 +24,10 @@ export default {
   width:100%;
   height:100%;
   margin:0px;
-  padding:0px;
+  padding:1rem;
 }
 /* need to add this here since Bulma only accepts it if its added to HTML, which is what we're not doing */
 #app.has-navbar-fixed-top {
-  padding-top: 3.25rem;
+  padding-top: 3.3rem;
 }
 </style>

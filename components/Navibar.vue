@@ -42,7 +42,9 @@ export default {
 </script>
 
 <style>
-
+	.navbar {
+		height: 3.25rem;
+	}
 </style>
 
 
