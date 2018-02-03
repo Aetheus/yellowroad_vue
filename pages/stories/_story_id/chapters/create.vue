@@ -3,7 +3,7 @@
     <chapter-create-form
         v-on:success="onSuccess" 
         v-on:fail="onFail"
-        :initial-form-state="{title : 'testT', body: 'testB', book_id : story_id}"
+        :initial-form-state="{title : '', body: '', book_id : story_id}"
         :form-settings="{
             header: header
         }"
