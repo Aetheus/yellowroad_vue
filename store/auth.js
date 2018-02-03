@@ -44,6 +44,9 @@ export const actions = {
          })
          commit("clearLoginAttemptFailed")
 
+         //globally remove the login token
+         this.$axios.setToken(data.token)
+
          return {
             login_success : true,
             token : data.token
@@ -71,8 +74,14 @@ export const actions = {
          })
          commit("clearLoginAttemptFailed");
 
+         //globally remove the login token
+         this.$axios.setToken(data.token)
+
          return true;
       } catch (err) {
+         //globally remove the login token
+         this.$axios.setToken(false)
+
          commit("removeLoggedInUser");
          return false;
       }
@@ -87,6 +96,9 @@ export const actions = {
          console.log(JSCookie.get())
          JSCookie.remove("auth_token");
       }
+
+      //globally remove the login token
+      this.$axios.setToken(false)
 
       return true;
    }   
