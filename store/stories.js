@@ -16,6 +16,10 @@ export const mutations = {
       //merge into the store
       store.map = Object.assign({},store.map,result_map)
       store.list = (is_replace_list) ? result_list : store.list.concat(result_list);
+   },
+
+   setStory(store, story) {
+      store.map[story.id] = story
    }
 }
 
@@ -25,16 +29,20 @@ export const actions = {
          const queryString = (page || perpage ? "?" : "") + (page ? `page=${page}` : "") 
             + (perpage && page ? "&" : "") + (perpage ? `perpage=${perpage}` : ""); 
 
-         //TODO: using axios with our API structure is awkward, since we need to do "data.data" twice. Look into this
-         //TODO: use the search options, if any were provided
-         let results = (await this.$axios.get(`/stories${queryString}`)).data
+         let results = (await this.$axios.$get(`/stories${queryString}`)).data
 
          commit("setStoriesUsingSearchResults", {
-            search_results: results.data,
+            search_results: results,
             is_replace_list: is_replace_list
          });
       }catch(err){         
          throw err;
       }
+   },
+
+   async fetchStory({commit,dispatch}, {story_id}) {
+      let book = (await this.$axios.$get(`/stories/${story_id}`)).data
+
+      commit("setStory", book)
    }
 }  

@@ -1,5 +1,11 @@
 <template>
    <div>
+      <div v-if="settings.header" class="field">
+         <h1 class="title">
+            {{settings.header}}
+         </h1>
+      </div>
+
       <div class="field">
          <label class="label" for="chapter-title">Title</label>
          <div class="control">
@@ -38,6 +44,7 @@ export default {
    data(){
       return {
          settings : Object.assign({
+            header : false,
             initial_body_rows : 18
          },this.formSettings),
          form_state : Object.assign({
