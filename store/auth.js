@@ -64,8 +64,9 @@ export const actions = {
    },
 
    //TODO: don't duplicate the logic of Login - centralize it instead
-   async verifyToken( {commit}, token ){
+   async verifyToken( {state,commit}, token){
       try {
+         token = token ? token : state.auth_token;
          let data = (await this.$axios.$post("/users/verify", { auth_token: token })).data
 
          commit("setLoggedInUser", {
@@ -92,10 +93,11 @@ export const actions = {
       commit("removeLoggedInUser");
       commit("clearLoginAttemptFailed");
 
-      if (isClient) {
-         console.log(JSCookie.get())
-         JSCookie.remove("auth_token");
-      }
+      //TODO: fix this
+      // if (isClient) {
+      //    console.log(JSCookie.get())
+      //    JSCookie.remove("auth_token");
+      // }
 
       //globally remove the login token
       this.$axios.setToken(false)

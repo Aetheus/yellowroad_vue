@@ -21,11 +21,17 @@
 
 <script>
 import UserPill from "~/components/UserPill"
+import JSCookie from "js-cookie";
 
 export default {
 	name:"user-shortcuts-widget",
 	props:[],
 	components:{UserPill},
+	mounted(){
+		if (this.isLoggedIn){
+			this.$store.dispatch("auth/verifyToken")
+		}
+	},
 	data(){
 		return {
 			dropdownOpen : false

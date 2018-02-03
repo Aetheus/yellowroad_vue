@@ -3,7 +3,7 @@
       <div class="field">
          <label class="label" for="chapter-title">Title</label>
          <div class="control">
-            <input name="chapter-title" class="input" type="text" placeholder="Chapter Title" v-model="title">
+            <input name="chapter-title" class="input" type="text" placeholder="Chapter Title" v-model="form_state.title">
          </div>
       </div>
       <div class="field">
@@ -13,7 +13,8 @@
             <textarea 
                name="chapter-body" 
                class="textarea" 
-               v-model="body"
+               :rows="settings.initial_body_rows"
+               v-model="form_state.body"
                placeholder="It all began with ... ">
             </textarea>
          </div>
@@ -33,20 +34,25 @@
 export default {
    name : "chapter-base-form",
    components :{},
-   props : ["initialFormState"],
+   props : ["initialFormState", "formSettings"],
    data(){
-	   return Object.assign({
-         title : "",
-         body  : "",
-         sample:""
-      }, this.initialFormState)
+      return {
+         settings : Object.assign({
+            initial_body_rows : 18
+         },this.formSettings),
+         form_state : Object.assign({
+            book_id : 0,
+            title : "",
+            body  : "",         
+         }, this.initialFormState)
+      }
    },
    methods:{
       emitSubmit(){
-         this.$emit("submit", this.$data)
+         this.$emit("submit", this.form_state)
       },
       emitCancel(){
-         this.$emit("cancel", this.$data)
+         this.$emit("cancel", this.form_state)
       }
    },
    computed: {

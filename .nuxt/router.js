@@ -5,7 +5,7 @@ Vue.use(Router)
 
 const _6cd6e8bc = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 const _55f69000 = () => import('../pages/stories/index.vue' /* webpackChunkName: "pages/stories/index" */).then(m => m.default || m)
-const _043c894f = () => import('../pages/chapters/create.vue' /* webpackChunkName: "pages/chapters/create" */).then(m => m.default || m)
+const _e189f8f0 = () => import('../pages/stories/_story_id/chapters/create.vue' /* webpackChunkName: "pages/stories/_story_id/chapters/create" */).then(m => m.default || m)
 
 
 
@@ -52,9 +52,9 @@ export function createRouter () {
 			name: "stories"
 		},
 		{
-			path: "/chapters/create",
-			component: _043c894f,
-			name: "chapters-create"
+			path: "/stories/:story_id/chapters/create",
+			component: _e189f8f0,
+			name: "stories-story_id-chapters-create"
 		}
     ],
     fallback: false
