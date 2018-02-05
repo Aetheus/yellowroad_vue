@@ -1,8 +1,8 @@
 <template>
    <div>
-      <div v-if="settings.header" class="field">
+      <div v-if="header" class="field">
          <h1 class="title">
-            {{settings.header}}
+            {{header}}
          </h1>
       </div>
 
@@ -40,18 +40,18 @@
 export default {
    name : "chapter-base-form",
    components :{},
-   props : ["initialFormState", "formSettings"],
+   props : ["initialFormState", "formSettings", "header", "chapterId", "storyId"],
    data(){
       return {
          settings : Object.assign({
-            header : false,
             initial_body_rows : 18
          },this.formSettings),
-         form_state : Object.assign({
-            book_id : 0,
-            title : "",
-            body  : "",         
-         }, this.initialFormState)
+         form_state : (
+            this.initialFormState ? this.initialFormState : {
+                  title : "",
+                  body  : "",
+            }
+         )
       }
    },
    methods:{

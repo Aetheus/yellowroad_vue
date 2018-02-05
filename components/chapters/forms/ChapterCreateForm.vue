@@ -2,8 +2,8 @@
   <chapter-base-form
       v-on:submit="onSubmit"
       v-on:cancel="onCancel"
-      :initialFormState = "initialFormState"
-      :formSettings = "formSettings"
+      :form-settings = "formSettings"
+      :header = "header"
   >
   </chapter-base-form>
 </template>
@@ -14,16 +14,28 @@ import ChapterBaseForm from "~/components/chapters/forms/ChapterBaseForm"
 
 export default {
    name: "chapter-create-form",
-   props : ["initialFormState", "formSettings"],
+   props : ["formSettings", "storyId"],
    components : {ChapterBaseForm},
-   data (){
-     return {
-
-     }
+   created(){      
+      let storyIsLoaded = this.$store.state.stories.map[this.storyId]
+      if (!storyIsLoaded) {
+          this.$store.dispatch("stories/fetchStory",{story_id:this.storyId})
+      }
+   },
+   computed : {
+      story(){
+        return this.$store.state.stories.map[this.storyId]
+      },
+      header(){
+        return (this.story ? `Create a new chapter in '${this.story.title}'` : 'Create a new chapter')
+      }
    },
    methods : {
       async onSubmit(form_state){         
-         let {success,message,chapter} = await this.$store.dispatch("chapters/create", form_state)
+         let {success,message,chapter} = await this.$store.dispatch("chapters/create", { 
+            story_id : this.storyId, 
+            chapter_details: form_state 
+         })
          if (success) {
             this.$emit("success", chapter)
          } else {

@@ -6,6 +6,7 @@ Vue.use(Router)
 const _6cd6e8bc = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 const _55f69000 = () => import('../pages/stories/index.vue' /* webpackChunkName: "pages/stories/index" */).then(m => m.default || m)
 const _e189f8f0 = () => import('../pages/stories/_story_id/chapters/create.vue' /* webpackChunkName: "pages/stories/_story_id/chapters/create" */).then(m => m.default || m)
+const _0afd8e50 = () => import('../pages/stories/_story_id/chapters/_chapter_id/update.vue' /* webpackChunkName: "pages/stories/_story_id/chapters/_chapter_id/update" */).then(m => m.default || m)
 
 
 
@@ -55,6 +56,11 @@ export function createRouter () {
 			path: "/stories/:story_id/chapters/create",
 			component: _e189f8f0,
 			name: "stories-story_id-chapters-create"
+		},
+		{
+			path: "/stories/:story_id/chapters/:chapter_id?/update",
+			component: _0afd8e50,
+			name: "stories-story_id-chapters-chapter_id-update"
 		}
     ],
     fallback: false
