@@ -21,17 +21,11 @@
 
 <script>
 import UserPill from "~/components/UserPill"
-import JSCookie from "js-cookie";
 
 export default {
 	name:"user-shortcuts-widget",
 	props:[],
 	components:{UserPill},
-	mounted(){
-		if (this.isLoggedIn){
-			this.$store.dispatch("auth/verifyToken")
-		}
-	},
 	data(){
 		return {
 			dropdownOpen : false
@@ -42,7 +36,7 @@ export default {
 			this.$store.commit("modal/open_modal", "LOGIN")
 		},
 		async logout(){
-			this.$store.dispatch("auth/logout")
+			await this.$logoutUser()
 		},
 		toggleDropdown(){
 			this.dropdownOpen = !this.dropdownOpen;

@@ -15,7 +15,15 @@ import ModalShell from "~/components/modals/ModalShell";
 
 export default {
   name: 'app',
-  components:{Navibar, ContentContainer,ModalShell}
+  components:{Navibar, ContentContainer,ModalShell},
+  async mounted() {
+    await this.$verifyUserToken();
+  },
+  computed:{
+    isLoggedIn(){
+      return this.$store.state.auth.is_logged_in;
+    }
+  }
 }
 </script>
 

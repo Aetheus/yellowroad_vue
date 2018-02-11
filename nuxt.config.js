@@ -19,6 +19,9 @@ module.exports = {
   modules: [
     '@nuxtjs/axios',
   ],
+  plugins: [
+    { src: '~/plugins/client_side_token_auth', ssr: false }
+  ],
   axios: {
     baseURL: "http://localhost:8080/api",
     browserBaseURL: "http://localhost:8080/api",

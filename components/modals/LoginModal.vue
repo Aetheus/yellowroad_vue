@@ -7,7 +7,8 @@
       <section class="modal-card-body">
          <div>
             <input type="text" name="username" v-model="username" />
-            <input type="text" name="password" v-model="password" />
+            <br>
+            <input type="password" name="password" v-model="password" />
             <button @click="login">
                Login
             </button>
@@ -27,13 +28,18 @@ export default {
    },
    methods : {
       async login() {
-         let {login_success, token} = await this.$store.dispatch("auth/login", {username:this.username,password: this.password});
-         if(login_success){                     
-            JSCookie.set("auth_token", token, {expires:30})
-            this.close();
+         try {
+            let success = await this.$loginUser({username:this.username,password: this.password});
+            if( success ){
+               this.close();
+            }
+         } catch (e) {
+            console.error(e)
          }
       },
       close(){
+         this.username = "";
+         this.password = "";
          this.$store.commit("modal/close_modal");
       }
    }

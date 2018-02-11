@@ -3,7 +3,7 @@
       v-on:submit="onSubmit"
       v-on:cancel="onCancel"
       :header = "header"
-      :initialFormState = "safeFormState"
+      :initial-form-state = "safeFormState"
    >
    </chapter-base-form>
 </template>

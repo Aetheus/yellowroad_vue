@@ -74,8 +74,7 @@ export const actions = {
             auth_token: data.token
          })
          commit("clearLoginAttemptFailed");
-
-         //globally remove the login token
+         
          this.$axios.setToken(data.token)
 
          return true;
@@ -92,12 +91,6 @@ export const actions = {
       //async because we may want to log logouts on server side someday
       commit("removeLoggedInUser");
       commit("clearLoginAttemptFailed");
-
-      //TODO: fix this
-      // if (isClient) {
-      //    console.log(JSCookie.get())
-      //    JSCookie.remove("auth_token");
-      // }
 
       //globally remove the login token
       this.$axios.setToken(false)

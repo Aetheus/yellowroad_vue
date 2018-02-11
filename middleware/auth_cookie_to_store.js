@@ -1,5 +1,4 @@
 import CookieParser from "cookie"
-import JsCookie from "js-cookie"
 
 //On the server side, this middleware gets the "auth_token" from the cookie (if available), 
 //and verifies it in order to populate the "auth" store
