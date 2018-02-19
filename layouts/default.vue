@@ -1,6 +1,7 @@
 <template>
   <div id="app" class="has-navbar-fixed-top">
     <navibar></navibar>
+    <alert-container> </alert-container>
     <content-container>
       <nuxt/>
     </content-container>
@@ -12,10 +13,11 @@
 import Navibar from '@/components/Navibar'
 import ContentContainer from "@/components/ContentContainer"
 import ModalShell from "~/components/modals/ModalShell";
+import AlertContainer from "~/components/alerts/AlertContainer";
 
 export default {
   name: 'app',
-  components:{Navibar, ContentContainer,ModalShell},
+  components:{Navibar, ContentContainer,ModalShell,AlertContainer},
   async mounted() {
     await this.$verifyUserToken();
   },
