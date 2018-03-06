@@ -1,3 +1,5 @@
+import ALERTS from "@/constants/alert-types"
+
 export const state = () => ({
    map: {}, //key : {chapter's id}, value: {chapter as JSON}
    requests : {   
@@ -53,9 +55,6 @@ export const actions = {
             chapter: response.chapter
          };
       }catch (err) {
-         //TODO: create a notification store/system to actually display this
-         //e.g: commit("notification/error",err)
-         //bear in mind that we'd still need to return so that the component dispatching this can have a chance to handle it as well
 
          let message = ""
          if (err.response && err.response.data && err.response.data.message) {
@@ -64,10 +63,12 @@ export const actions = {
             message = err.toString()
          }
 
-         return {
+        commit("alert/add", { type: ALERTS.ERROR, message: message }, { root: true })
+
+        return {
             success : false,
             message
-         }
+        }
       }
    },
 
@@ -81,15 +82,14 @@ export const actions = {
             chapter: response.chapter
          };
       } catch (err) {
-         //TODO: create a notification store/system to actually display this
-         // commit("notification/error", err)
-
          let message = ""
          if (err.response && err.response.data && err.response.data.message) {
             message = err.response.data.message;
          } else {
             message = err.toString()
          }
+
+        commit("alert/add", { type: ALERTS.ERROR, message: message }, { root: true })
 
          return {
             success: false,

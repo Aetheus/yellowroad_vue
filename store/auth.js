@@ -1,3 +1,5 @@
+import ALERTS from "@/constants/alert-types"
+
 export const state = () => ({
    user : null,
    auth_token : null,
@@ -52,14 +54,19 @@ export const actions = {
             token : data.token
          };
       } catch(err){         
-         if (err.response && err.response.data && err.response.data.message){
-            commit("setLoginAttemptFailed", err.response.data.message);
-         } else {
-            commit("setLoginAttemptFailed", "Unknown error occurred while attempting to login");
-         }
-         return {
-            login_success: false
-         };
+        let message = "";
+        if (err.response && err.response.data && err.response.data.message){
+          message = err.response.data.message;
+        } else {
+          message = "Unknown error occurred while attempting to login"
+        }
+
+        commit("alert/add", { type: ALERTS.ERROR, message:message}, {root:true})
+        commit("setLoginAttemptFailed", message);
+
+        return {
+          login_success: false
+        };
       }
    },
 

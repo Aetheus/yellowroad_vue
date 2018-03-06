@@ -31,7 +31,7 @@ export default {
 <style>
    #alert-container {
       position: fixed;
-      z-index: 9;
+      z-index: 30; /* bulma css's modals are z-index:20 */
       margin-top:20px;
       width:100%;
    }
