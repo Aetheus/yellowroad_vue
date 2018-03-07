@@ -38,7 +38,7 @@ export const mutations = {
 export const actions = {
    async login( {commit, dispatch}, {username, password}){
       try{
-         let data = (await this.$axios.$post("/users/login", { username: username, password:password })).data
+         let data = (await this.$axios.$post("/tokens", { username: username, password:password })).data
          
          commit("setLoggedInUser", {
             user: data.user, 
@@ -73,8 +73,8 @@ export const actions = {
    //TODO: don't duplicate the logic of Login - centralize it instead
    async verifyToken( {state,commit}, token){
       try {
-         token = token ? token : state.auth_token;
-         let data = (await this.$axios.$post("/users/verify", { auth_token: token })).data
+          token = token ? token : state.auth_token;
+          let data = (await this.$axios.$post("/tokens/verify", { auth_token: token })).data
 
          commit("setLoggedInUser", {
             user: data.user,
