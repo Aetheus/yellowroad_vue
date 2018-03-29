@@ -6,7 +6,7 @@
      <hr>
          {{this.chapter.body}}
      <hr>
-     <chapter-path-list :chapter-id=this.chapterId />
+     <chapter-path-list :chapter-id=this.chapterId :story-id=this.storyId />
   </div>  
 </template>
 
