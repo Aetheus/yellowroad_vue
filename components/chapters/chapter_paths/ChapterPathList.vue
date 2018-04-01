@@ -5,6 +5,7 @@
          :key="chapter_path.id"
          :chapterPath="chapter_path"
          :story="story"
+         :mode="mode"
       />
    </ul>
 </template>
@@ -14,7 +15,7 @@ import ChapterPath from "@/components/chapters/chapter_paths/ChapterPath"
 
 export default {
    name:"ChapterPathList",
-   props: ["chapterId", "storyId"],
+   props: ["chapterId", "storyId", "mode"],
    components:{ChapterPath},
    computed:{
       story(){

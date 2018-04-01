@@ -1,12 +1,12 @@
 <template>
   <div>
      <h1 class="title is-5">
-        {{this.chapter.title}}
+        {{chapter.title}}
      </h1>     
      <hr>
-         {{this.chapter.body}}
+         {{chapter.body}}
      <hr>
-     <chapter-path-list :chapter-id=this.chapterId :story-id=this.storyId />
+     <chapter-path-list :mode=mode :chapter-id=chapterId :story-id=storyId />
   </div>  
 </template>
 
@@ -16,7 +16,7 @@ import ChapterPathList from "@/components/chapters/chapter_paths/ChapterPathList
 export default {
   name:"ChapterViewer",
   components: {ChapterPathList},
-  props: ["chapterId", "storyId"],
+  props: ["chapterId", "storyId", "mode"],
   computed : {
      chapter(){
         return this.$store.state.chapters.map[this.chapterId]
