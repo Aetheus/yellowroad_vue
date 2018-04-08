@@ -8,6 +8,7 @@ const _55f69000 = () => import('../pages/stories/index.vue' /* webpackChunkName:
 const _e189f8f0 = () => import('../pages/stories/_story_id/chapters/create.vue' /* webpackChunkName: "pages/stories/_story_id/chapters/create" */).then(m => m.default || m)
 const _2b08ad93 = () => import('../pages/stories/_story_id/chapters/_chapter_id/index.vue' /* webpackChunkName: "pages/stories/_story_id/chapters/_chapter_id/index" */).then(m => m.default || m)
 const _0afd8e50 = () => import('../pages/stories/_story_id/chapters/_chapter_id/update.vue' /* webpackChunkName: "pages/stories/_story_id/chapters/_chapter_id/update" */).then(m => m.default || m)
+const _517b19f8 = () => import('../pages/stories/_story_id/chapters/_chapter_id/game/index.vue' /* webpackChunkName: "pages/stories/_story_id/chapters/_chapter_id/game/index" */).then(m => m.default || m)
 
 
 
@@ -67,6 +68,11 @@ export function createRouter () {
 			path: "/stories/:story_id/chapters/:chapter_id?/update",
 			component: _0afd8e50,
 			name: "stories-story_id-chapters-chapter_id-update"
+		},
+		{
+			path: "/stories/:story_id/chapters/:chapter_id?/game",
+			component: _517b19f8,
+			name: "stories-story_id-chapters-chapter_id-game"
 		}
     ],
     fallback: false

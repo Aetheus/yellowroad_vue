@@ -42,11 +42,11 @@ export const mutations = {
 }
 
 export const actions = {
-   advanceAlongPath(
+   async advanceGame(
       {commit, dispatch}, 
-      {story_id, chapter_id, chapter_path_id, current_save}
+      { story_id, chapter_path, current_save}
    ){
-      commit("ensureStory", story_id);
+      let { chapter_id, chapter_path_id} = chapter_path;
 
       let result = await this.$axios.post(`/api/stories/${story_id}/chapters/${chapter_id}/game`,{
          save: current_save,
@@ -55,5 +55,12 @@ export const actions = {
 
       commit("pushNewState", { story_id, chapter_id, chapter_path_id, save : current_save})
       commit("chapters/setChapter", result.data.chapter)
+   },
+   async beginGame(
+      {commit, dispatch},
+      {story_id, first_chapter_id, starting_save}
+   ){
+      commit("ensureStory", story_id)
+      commit("pushNewState", {story_id, chapter_id: first_chapter_id, save: starting_save})
    }
 }

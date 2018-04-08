@@ -13,17 +13,26 @@ export default {
    name:"ChapterPath",
    props:["chapterPath","story","mode"],
    computed : {
-     link_to_chapter(){
-       return `/stories/${this.story.id}/chapters/${this.chapterPath.to_chapter_id}`;
-     }
+      link_to_chapter(){
+        return `/stories/${this.story.id}/chapters/${this.chapterPath.to_chapter_id}`;
+      },
+      current_save(){
+        let game = this.$store.state.game.stories[this.story.id];
+        let current_save = game.states[game.cursor].save
+        return current_save;
+      }
    },
    methods : {
-     onClick(event){
+     async onClick(event){
       event.preventDefault(); event.stopPropagation();
       
       switch (this.mode) {
         case STORY_MODES.GAME : {
-          //TODO : post the savefile to the "game route" here
+          let story_id = this.story.id;
+          let chapter_path = this.chapterPath;
+          let current_save = this.current_save;
+
+          await this.$store.dispatch("game/advanceGame", {story_id, chapter_path, current_save})
           break;
         }
         default : {
