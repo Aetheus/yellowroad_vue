@@ -32,10 +32,11 @@ export const mutations = {
          chapter_path_id, 
          current_chapter_id: chapter_id 
       })
-      
+
       store.stories[story_id].states = branch;
+      store.stories[story_id].cursor = branch.length - 1;
    },
-   travelState(store, {cursor}){
+   moveCursor(store, {cursor}){
       
    }
 }
