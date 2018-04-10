@@ -46,14 +46,19 @@ export const actions = {
       {commit, dispatch}, 
       { story_id, chapter_path, current_save}
    ){
-      let { chapter_id, chapter_path_id} = chapter_path;
+      let { to_chapter_id, chapter_path_id} = chapter_path;
 
-      let result = await this.$axios.post(`/api/stories/${story_id}/chapters/${chapter_id}/game`,{
+      let result = await this.$axios.post(`/stories/${story_id}/chapters/${to_chapter_id}/game`,{
          save: current_save,
          chapter_path_id
       })      
 
-      commit("pushNewState", { story_id, chapter_id, chapter_path_id, save : current_save})
+      commit("pushNewState", {
+         story_id,
+         chapter_id: to_chapter_id,
+         chapter_path_id,
+         save: current_save
+      })
       commit("chapters/setChapter", result.data.chapter)
    },
    async beginGame(
