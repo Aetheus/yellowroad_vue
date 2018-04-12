@@ -23,7 +23,7 @@ export default {
         return this.$store.state.game.stories[this.storyId]
     },
     current_chapter_id(){
-        return this.game.states[this.game.cursor].current_chapter_id;
+        return this.game.history[this.game.cursor].current_chapter_id;
     }
   }
 }
