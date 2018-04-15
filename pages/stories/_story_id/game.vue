@@ -23,15 +23,11 @@ export default {
       let {store,params} = context;
       let {story_id} = params;
 
+      await store.dispatch("stories/fetchStory",{story_id:story_id});
       let story = store.state.stories.map[story_id];
-      if (!story){
-        await store.dispatch("stories/fetchStory",{story_id:story_id});
-        story = store.state.stories.map[story_id];
-        await store.dispatch("chapters/fetchChapter",{story_id:story_id, chapter_id: story.first_chapter_id})
-      }
+      await store.dispatch("chapters/fetchChapter",{story_id:story_id, chapter_id: story.first_chapter_id})
 
       await store.dispatch("game/beginGame",{ story_id, first_chapter_id: story.first_chapter_id, starting_save: {} })
-      
    }
 }
 </script>

@@ -15,12 +15,14 @@ export const state = () => ({
 export const mutations = {
    ensureStory(store, story_id){
       if (!store.stories[story_id]){
-         store.stories[story_id] = {
-            history : [
+         store.stories = Object.assign({}, store.stories, {
+            [story_id] : {
+               history: [
                //{save : {}, current_chapter_id : 2, chapter_path_id: 1},
-            ],
-            cursor: 0
-         }
+               ],
+               cursor: 0
+            }
+         })
       }
    },
    pushNewState(store, { story_id, chapter_id, chapter_path_id, save }){
