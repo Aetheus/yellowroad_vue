@@ -1,10 +1,7 @@
 <template>
-  <div>
-    <game-viewer 
-      :story-id="story_id"
-    ></game-viewer>
-  </div>
-  
+  <game-viewer 
+    :story-id="story_id"
+  ></game-viewer>
 </template>
 
 <script>
