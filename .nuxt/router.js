@@ -5,6 +5,7 @@ Vue.use(Router)
 
 const _6cd6e8bc = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 const _55f69000 = () => import('../pages/stories/index.vue' /* webpackChunkName: "pages/stories/index" */).then(m => m.default || m)
+const _fab5b396 = () => import('../pages/stories/_story_id/index.vue' /* webpackChunkName: "pages/stories/_story_id/index" */).then(m => m.default || m)
 const _d802e742 = () => import('../pages/stories/_story_id/game.vue' /* webpackChunkName: "pages/stories/_story_id/game" */).then(m => m.default || m)
 const _e189f8f0 = () => import('../pages/stories/_story_id/chapters/create.vue' /* webpackChunkName: "pages/stories/_story_id/chapters/create" */).then(m => m.default || m)
 const _2b08ad93 = () => import('../pages/stories/_story_id/chapters/_chapter_id/index.vue' /* webpackChunkName: "pages/stories/_story_id/chapters/_chapter_id/index" */).then(m => m.default || m)
@@ -53,6 +54,11 @@ export function createRouter () {
 			path: "/stories",
 			component: _55f69000,
 			name: "stories"
+		},
+		{
+			path: "/stories/:story_id",
+			component: _fab5b396,
+			name: "stories-story_id"
 		},
 		{
 			path: "/stories/:story_id/game",
