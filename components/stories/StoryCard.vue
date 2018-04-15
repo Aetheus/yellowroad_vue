@@ -46,7 +46,11 @@
             </div>
             
             
-            <div class="story-card__description">
+            <div class="story-card__description">           
+                <router-link :to="{ path:`/stories/${story.id}/game` }" class="button is-primary" >
+                  Play
+                </router-link>    
+                <br>
                {{story.description}}
             </div>
 
