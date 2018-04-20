@@ -12,7 +12,7 @@
 
       <!--TODO: only show below links if user has required permissions -->
       <router-link
-         :to="{ path:`/stories/${storyId}/edit`}"
+         :to="{ path:`/stories/${storyId}/update`}"
          class="button is-primary"
       >
          Edit Story

@@ -78,7 +78,7 @@ export const actions = {
 
    async update({ commit, dispatch }, {story_id, update_form}) {
       try {
-         let response = (await this.$axios.$post(`/stories/${story_id}`, update_form)).data
+         let response = (await this.$axios.$put(`/stories/${story_id}`, update_form)).data
          commit("setStory", response.book)
 
          return {
