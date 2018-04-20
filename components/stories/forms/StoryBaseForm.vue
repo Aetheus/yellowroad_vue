@@ -24,7 +24,7 @@
                name="description"
                class="textarea"
                :rows="7"
-               v-model="form_state.body"
+               v-model="form_state.description"
                placeholder="It all began with ... ">
             </textarea>
         </div>
