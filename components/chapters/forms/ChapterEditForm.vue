@@ -13,11 +13,12 @@ import ChapterBaseForm from "~/components/chapters/forms/ChapterBaseForm"
 
 export default {
    name:"chapter-edit-form",
-   props : ["initialFormState", "storyId", "chapterId"],
+   props : ["storyId", "chapterId"],
    components : {ChapterBaseForm},
-   created(){
+   created(){      
       let storiesIsLoaded = this.$store.state.stories.map[this.storyId]
       if (!storiesIsLoaded) {
+         //TODO: show a "loading ... " sign while loading this
          this.$store.dispatch("stories/fetchStory",{
             story_id:this.storyId
          })
