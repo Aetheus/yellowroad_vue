@@ -43,6 +43,7 @@ export const actions = {
    },
 
    async fetchStory({commit,dispatch}, {story_id}) {
+      //TODO: implement request statuses (see chapters store)
       let book = (await this.$axios.$get(`/stories/${story_id}`)).data
 
       commit("setStory", book)
@@ -72,7 +73,33 @@ export const actions = {
             success: false,
             message
          }
+      }      
+   },
+
+   async update({ commit, dispatch }, {story_id, update_form}) {
+      try {
+         let response = (await this.$axios.$post(`/stories/${story_id}`, update_form)).data
+         commit("setStory", response.book)
+
+         return {
+            success: true,
+            story: response.book
+         }
+      } catch (err) {
+         //TODO: this catch block is duplicated in several places. Centralize it.
+         let message = ""
+         if (err.response && err.response.data && err.response.data.message) {
+            message = err.response.data.message;
+         } else {
+            message = err.toString()
+         }
+
+         commit("alert/add", { type: ALERTS.ERROR, message: message }, { root: true })
+
+         return {
+            success: false,
+            message
+         }
       }
-      
    }
 }  
