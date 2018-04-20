@@ -1,11 +1,16 @@
 <template>
    <chapter-base-form
+      v-if="chapter"
       v-on:submit="onSubmit"
       v-on:cancel="onCancel"
       :header = "header"
       :initial-form-state = "safeFormState"
    >
    </chapter-base-form>
+   <div v-else>
+      <!-- TODO: show a proper "loading ... " sign and use the "requests" feature of store instead of this v-if check -->
+      Not loaded yet
+   </div>
 </template>
 
 <script>
