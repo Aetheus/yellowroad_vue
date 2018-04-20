@@ -25,7 +25,7 @@ export default {
          }
       },
       onCancel(form_state){
-         
+         this.$emit("cancel",form_state)
       }
    }
 }
