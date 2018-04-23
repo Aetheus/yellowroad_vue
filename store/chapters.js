@@ -1,49 +1,30 @@
 import ALERTS from "@/constants/alert-types"
+import RESOURCE_STATES from "@/constants/resource_states"
 
 export const state = () => ({
    map: {}, //key : {chapter's id}, value: {chapter as JSON}
-   requests : {   
-      loading : {},
-      failed : {},
-   }
 })
 
 export const mutations = {
-   setChapter(store, chapter){
-      store.map[chapter.id] = chapter;
-   },
-   setRequestStatus(store, {chapter_id, status}){
-      switch(status){
-         case "SUCCESS" : {
-            delete store.requests.loading[chapter_id];
-            delete store.requests.failed[chapter_id];    
-            break;        
-         }
-         case "FAILED" : {
-            delete store.requests.loading[chapter_id];
-            store.requests.failed[chapter_id] = true;
-            break;
-         }
-         case "LOADING" : {
-            delete store.requests.failed[chapter_id];
-            store.requests.loading[chapter_id] = true;
-            break;
-         }
-      }
-   }
+    setChapter(store, chapter){
+        store.map[chapter.id] = chapter;
+    },
+
+    setStatus(store, { id, status }) {
+        store.map = { ...store.map, [id]: status }
+    }
 }
 
 export const actions = {
-   async fetchChapter ({commit, dispatch}, {story_id, chapter_id}) {
-      try {
-         commit("setRequestStatus", { chapter_id, status: "LOADING" })         
-         let response = (await this.$axios.$get(`stories/${story_id}/chapters/${chapter_id}`)).data
-         commit("setChapter", response.chapter)
-         commit("setRequestStatus", { chapter_id, status: "SUCCESS"})
-      } catch (err) {
-         commit("setRequestStatus", { chapter_id, status: "FAILED" })
-      }
-   },
+    async fetchChapter ({commit, dispatch}, {story_id, chapter_id}) {
+        try {
+            commit("setStatus", { id: chapter_id, status: RESOURCE_STATES.LOADING })
+            let response = (await this.$axios.$get(`stories/${story_id}/chapters/${chapter_id}`)).data
+            commit("setChapter", response.chapter)
+        } catch (err) {
+            commit("setStatus", { id: chapter_id, status: RESOURCE_STATES.FAILED })
+        }
+    },
 
    async create({ commit, dispatch }, { story_id, chapter_details } ){
       try{

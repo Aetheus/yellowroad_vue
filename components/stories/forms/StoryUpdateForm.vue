@@ -1,6 +1,6 @@
 <template>
    <story-base-form
-      v-if="this.story"
+      v-if="isLoaded(this.story)"
       :initialFormState="safeFormState"
       @submit="onSubmit"
       @cancel="onCancel"
@@ -8,16 +8,23 @@
    </story-base-form>
    <div v-else >
       <!-- TODO: show a proper "loading ... " sign and use the "requests" feature of store instead of this v-if check -->
-      Not loaded yet
+      <div v-if="isFailed(this.story)">
+         Failed to load!
+      </div>
+      <div v-else-if="isLoading(this.story)">
+         Loading ... 
+      </div>
    </div>
 </template>
 
 <script>
 import StoryBaseForm from "@/components/stories/forms/StoryBaseForm";
+import ResourceStateMixin from "@/mixins/ResourceState"
 
 export default {
    name: "StoryUpdateForm",
    components: {StoryBaseForm},
+   mixins: [ResourceStateMixin],
    props: ["storyId"],
    created(){
       let storiesIsLoaded = this.$store.state.stories.map[this.storyId]

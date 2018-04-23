@@ -1,4 +1,5 @@
 import ALERTS from "@/constants/alert-types"
+import RESOURCE_STATES from "@/constants/resource_states"
 
 export const state = () => ({
    map: {}, //key : {story's id}, value: {story as JSON}
@@ -21,7 +22,11 @@ export const mutations = {
    },
 
    setStory(store, story) {
-      store.map[story.id] = story
+      store.map = { ...store.map, [story.id]: story  }
+   },
+
+   setStatus(store, {id, status}){
+      store.map = { ...store.map, [id]:status }
    }
 }
 
@@ -44,9 +49,13 @@ export const actions = {
 
    async fetchStory({commit,dispatch}, {story_id}) {
       //TODO: implement request statuses (see chapters store)
-      let book = (await this.$axios.$get(`/stories/${story_id}`)).data
-
-      commit("setStory", book)
+      try {
+         commit("setStatus", { id: story_id, status: RESOURCE_STATES.LOADING })
+         let book = (await this.$axios.$get(`/stories/${story_id}`)).data
+         commit("setStory", book)
+      } catch (err) {
+         commit("setStatus", { id: story_id, status: RESOURCE_STATES.FAILED })
+      }
    },
 
    async create({commit, dispatch}, story_details){
