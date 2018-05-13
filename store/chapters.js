@@ -26,23 +26,23 @@ export const actions = {
         }
     },
 
-   async create({ commit, dispatch }, { story_id, chapter_details } ){
-      try{
-         let response = (await this.$axios.$post(`stories/${story_id}/chapters`, chapter_details)).data
-         commit("setChapter", response.chapter)
+    async create({ commit, dispatch }, { story_id,chapter,chapter_path } ){
+        try{
+            let response = (await this.$axios.$post(`stories/${story_id}/chapters`, { chapter, chapter_path})).data
+            commit("setChapter", response.chapter)
          
-         return {
-            success: true,
-            chapter: response.chapter
-         };
-      }catch (err) {
+            return {
+                success: true,
+                chapter: response.chapter
+            };
+        }catch (err) {
 
-         let message = ""
-         if (err.response && err.response.data && err.response.data.message) {
-            message = err.response.data.message;
-         } else {
-            message = err.toString()
-         }
+            let message = ""
+            if (err.response && err.response.data && err.response.data.message) {
+                message = err.response.data.message;
+            } else {
+                message = err.toString()
+            }
 
         commit("alert/add", { type: ALERTS.ERROR, message: message }, { root: true })
 

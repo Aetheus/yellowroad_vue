@@ -25,6 +25,7 @@
             </textarea>
          </div>
       </div>
+      <slot></slot>
       <div class="field is-grouped">
          <p class="control">
             <a v-on:click="this.emitSubmit" class="button is-primary"> Submit </a>
