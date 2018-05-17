@@ -1,6 +1,7 @@
 <template>
    <story-update-form
       :story-id="storyId"
+      @success="onSuccess"
    >
    </story-update-form>
 </template>
@@ -18,6 +19,11 @@ export default {
    },
    async fetch({store,params}){
       await store.dispatch("stories/fetchStory",{story_id:params.story_id});
+   },
+   methods : {
+      onSuccess(){
+         this.$router.push({ path: `/stories/${this.storyId}` })
+      }
    }
 
 }

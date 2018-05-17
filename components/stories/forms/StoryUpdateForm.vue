@@ -20,6 +20,7 @@
 <script>
 import StoryBaseForm from "@/components/stories/forms/StoryBaseForm";
 import ResourceStateMixin from "@/mixins/ResourceState"
+import ALERT_TYPES from "@/constants/alert-types"
 
 export default {
    name: "StoryUpdateForm",
@@ -50,6 +51,7 @@ export default {
          })
 
          if (success) {
+            this.$store.commit("alert/add",{message: "Successfully edited story" ,type: ALERT_TYPES.INFO})
             this.$emit("success", story)
          } else {
             this.$emit("fail", {message})
