@@ -2,6 +2,7 @@
    <story-update-form
       :story-id="storyId"
       @success="onSuccess"
+      @cancel="onCancel"
    >
    </story-update-form>
 </template>
@@ -22,6 +23,9 @@ export default {
    },
    methods : {
       onSuccess(){
+         this.$router.push({ path: `/stories/${this.storyId}` })
+      },
+      onCancel(){
          this.$router.push({ path: `/stories/${this.storyId}` })
       }
    }
