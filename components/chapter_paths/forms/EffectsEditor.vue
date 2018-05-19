@@ -1,6 +1,7 @@
 <template>
    <div class="effects-editor">
       <!-- {"/health": {"op": "SET", "arg": -5}, "/morale": {"op": "SET", "arg": 50}} -->
+      <button @click="addEffect">Add Effect</button>
       <table class="table">
          <tr 
             v-for="path in alphabeticallySortedPaths" 
@@ -8,7 +9,7 @@
          >
             <td>
                <input type="text" :value="path"
-                  @blur="(event) => {onPathChange(path,event.target.value)}" 
+                  @blur="(event) => {updatePathName(path,event.target.value)}" 
                >
             </td>
             <td>
@@ -21,9 +22,11 @@
                   @blur="(event) => {updateEffect(path,{arg:event.target.value})}" 
                >
             </td>
+            <td>
+               <button @click="deleteEffect(path)">Delete</button>
+            </td>
          </tr>
-      </table>
-      <button @click="addEffect">Add Effect</button>
+      </table>      
    </div>
 </template>
 
@@ -53,19 +56,22 @@ export default {
    methods:{
       addEffect(){
          let counter = 1;
-         let pathname = `path_${counter}`
+         let pathname = `/path_${counter}`
          while(this.effects[pathname]){
             counter++;
-            pathname = `path_${counter}`
+            pathname = `/path_${counter}`
          }
 
          this.$set(this.effects,pathname,{op:"SET",arg:"your value here"})
       },
-      onPathChange(originalPathName,newPathName){
+      updatePathName(originalPathName,newPathName){
          let effectAtPath = this.effects[originalPathName]
 
          this.$delete(this.effects,originalPathName)
          this.$set(this.effects,newPathName,effectAtPath)
+      },
+      deleteEffect(path){
+         this.$delete(this.effects,path)
       },
       updateEffect(path, change){
          const currentEffectAtPath = this.effects[path];
