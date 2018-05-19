@@ -25,15 +25,15 @@
          <div class="control">
             <input name="effects" class="input" type="text" placeholder="Effects" v-model="effects">
          </div>
-       </div>
+      </div>
 
       <div class="field">
          <label class="label">Requirements</label>
             <div class="control">
                <input name="requirement" class="input" type="text" placeholder="Requirements" v-model="requirements">
             </div>
-          </div>
       </div>
+    </div>
 </template>
 
 <script>
