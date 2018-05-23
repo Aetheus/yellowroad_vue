@@ -26,16 +26,9 @@
    </div>
 
    <div class="field">
-      <!-- <label class="label">Effects</label>
-      <div class="control">
-         <input name="effects" class="input" type="text" placeholder="Effects" v-model="formState.effects">
-      </div> -->
       <label class="label">Effects</label>
       <div class="control">
-         <effects-editor 
-            :initialEffects="formState.effects"
-            @change="onEffectsChange"
-         >
+         <effects-editor v-model="formState.effects">
          </effects-editor>
       </div>
    </div>
@@ -87,9 +80,12 @@ export default {
       formSettings: {type: Object},
    },
    data(){      
+      //computed properties aren't available yet at this point, so we'll have to manually merge the settings
+      const settings = {...DEFAULT_SETTINGS, ...this.formSettings};
+
       return {         
          formState : {
-            ...this.generateDefaultState({...DEFAULT_SETTINGS, ...this.formSettings}),
+            ...this.generateDefaultState(settings),
             ...this.initialFormState
          },
          chaptersIndex : [],
@@ -104,9 +100,6 @@ export default {
       this.chaptersIndex = await this.fetchChaptersIndex();
    },
    methods : {
-      onEffectsChange(newEffects){
-         this.formState = { ...this.formState, effects: newEffects }
-      },
       emitSubmit(){
          this.$emit("submit", this.formState)
       },
