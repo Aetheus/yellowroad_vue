@@ -85,7 +85,7 @@ export default {
          this.$emit("input", effects)
       },
       deleteEffect(path){
-         const effects = {...this.effects};
+         const effects = {...this.value};
 
          delete effects[path];
 
