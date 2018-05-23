@@ -9,24 +9,39 @@
       }"
    >
       <template slot="before-toChapterDropdown">
-         <div class="tabs is-toggle">
-            <ul>
-               <li @click.stop.prevent="setToChapterSetting(true)" :class="{'is-active':isToNewChapter}"><a>New Chapter</a></li>
-               <li @click.stop.prevent="setToChapterSetting(false)" :class="{'is-active':!isToNewChapter}"><a>Existing Chapter</a></li>
-            </ul>                        
+         <div class="field is-horizontal">
+            <div class="field-label">
+               <label class="label">Is Path To New Chapter?</label>
+            </div>
+            <div class="field-body">
+               <div class="tabs is-toggle">
+                  <ul>
+                     <li @click.stop.prevent="setToChapterSetting(true)" :class="{'is-active':isToNewChapter}"><a>New Chapter</a></li>
+                     <li @click.stop.prevent="setToChapterSetting(false)" :class="{'is-active':!isToNewChapter}"><a>Existing Chapter</a></li>
+                  </ul>                        
+               </div>
+            </div>
          </div>
-
-         <chapter-base-form
-            class="embedded-chapter-form"
-            v-if="isToNewChapter"
-            v-on:submit="onChapterSubmit"
-            v-on:cancel="onChapterCancel"
-            :form-settings = "formSettings"
-            :header = "header"
-         >              
-         </chapter-base-form>
       </template>
 
+      
+
+      <template v-if="isToNewChapter" slot="after-toChapterDropdown">
+         <hr>
+         <div class="embedded-chapter-form-wrapper has-background-light">
+            <chapter-base-form            
+               class="embedded-chapter-form"
+               v-on:submit="onChapterSubmit"
+               v-on:cancel="onChapterCancel"
+               :form-settings = "formSettings"
+               header = "New Chapter"
+            >              
+            </chapter-base-form>
+         </div>
+         <hr>
+      </template>
+      
+      
       
 
    </chapter-path-base-form>
@@ -60,9 +75,12 @@ export default {
 </script>
 
 <style>
- .chapter-path-create-form .embedded-chapter-form{
-    padding-left:5%;
-    padding-right:5%;
+ .chapter-path-create-form .embedded-chapter-form-wrapper{
+    width:100%;
+ }
+ .chapter-path-create-form .embedded-chapter-form-wrapper > .embedded-chapter-form{
+    width:90%;
+    margin:auto;
  }
 </style>
 

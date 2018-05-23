@@ -4,50 +4,64 @@
       <h1 class="title">{{header}}</h1>
    </div>
 
-   <div class="field">
-      <label class="label">Description</label>
-      <div class="control">
+   <div class="field is-horizontal">
+      <div class="field-label">
+         <label class="label">Description</label>
+      </div>
+      <div class="field-body">
          <input name="description" class="input" type="text" placeholder="Description" v-model="formState.description">
       </div>
    </div>
 
-   <div class="field">
-      <label class="label">Requirements</label>
-      <div class="control">
-         <input name="requirement" class="input" type="text" placeholder="Requirements" v-model="formState.requirements">
+   <div class="field is-horizontal">
+      <div class="field-label">
+         <label class="label">Requirements</label>
+      </div>
+      <div class="field-body">
+         <input name="requirement" class="input" type="text" placeholder="Requirements" v-model="formState.requirements">   
       </div>
    </div>
 
-   <div class="field">
-      <label class="label">Effects</label>
-      <div class="control">
+   <div class="field is-horizontal">
+      <div class="field-label">
+         <label class="label">Effects</label>
+      </div>
+      <div class="field-body">
          <effects-editor v-model="formState.effects">
          </effects-editor>
       </div>
    </div>
 
+   <div v-if="!settings.hide_from_chapter_id" class="field is-horizontal">
+      <div class="field-label">
+         <label class="label">From Chapter</label>
+      </div>
 
-
-   <div class="field from-chapter-field">
-      <label class="label">From Chapter</label>
-      <div class="control">
+      <div class="field-body">
          <slot name="before-fromChapterDropdown"></slot>
-         <div v-if="!settings.hide_from_chapter_id" class="select">
+         <div class="select">
             <chapter-dropdown :chapters="chaptersIndex" @change="onFromChapterSelected" />
          </div>
       </div>
    </div>
 
-   <div class="field">
-      <label class="label">To Chapter</label>
+   <slot name="before-toChapterDropdown"></slot>
+   <div v-if="!settings.hide_to_chapter_id" class="field is-horizontal to-chapter-field">
+      <div class="field-label">
+         <label class="label">To Chapter</label>
+      </div>
 
-      <div class="control">
-         <slot name="before-toChapterDropdown"></slot>
-         <div v-if="!settings.hide_to_chapter_id" class="select">
-            <chapter-dropdown :chapters="chaptersIndex" @change="onToChapterSelected" />
+      <div class="field-body">
+         <div class="to-chapter-field-body-wrapper">
+            <div class="select">
+               <chapter-dropdown :chapters="chaptersIndex" @change="onToChapterSelected" />
+            </div>
          </div>
+         
       </div>
    </div>
+   <slot name="after-toChapterDropdown"></slot>
+
 
 
    <div class="field is-grouped">
@@ -141,9 +155,8 @@ export default {
 </script>
 
 <style>
-   .from-chapter-field > * {
-      display:inline-block;
-      margin-right:5px;
+   .chapter-path-base-form .to-chapter-field .to-chapter-field-body-wrapper {
+      width:100%;
    }
 </style>
 
