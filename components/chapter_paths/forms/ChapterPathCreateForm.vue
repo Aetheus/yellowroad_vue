@@ -28,7 +28,7 @@
 
       <template v-if="isToNewChapter" slot="after-toChapterDropdown">
          <hr>
-         <div class="embedded-chapter-form-wrapper has-background-light">
+         <div class="embedded-chapter-form-wrapper has-background-light box">
             <chapter-base-form            
                class="embedded-chapter-form"
                v-on:submit="onChapterSubmit"
