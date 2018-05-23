@@ -1,6 +1,7 @@
 <template>
    <chapter-path-base-form
       header="Updating [x]"
+      :storyId="storyId"
       :initialFormState="{
          effects : {'/health': {'op': 'SET', 'arg': -5}},
          requirements : {'paste2':'ace2'},
@@ -15,7 +16,8 @@ import ChapterPathBaseForm from "@/components/chapter_paths/forms/ChapterPathBas
 
 export default {
    name:"ChapterPathUpdateForm",
-   components: {ChapterPathBaseForm}
+   components: {ChapterPathBaseForm},
+   props:["storyId"]
 }
 </script>
 
