@@ -1,11 +1,15 @@
 <template>
    <chapter-base-form
       v-if="chapter"
-      v-on:submit="onSubmit"
-      v-on:cancel="onCancel"
+      v-model="chapter"
       :header = "header"
-      :initial-form-state = "safeFormState"
    >
+      <template slot="before-End">
+         <div class="field is-grouped">
+            <p class="control"> <a @click="onSubmit" class="button is-primary"> Submit </a> </p>
+            <p class="control"> <a @click="onCancel" class="button is-light"> Cancel </a> </p> 
+         </div>
+      </template>
    </chapter-base-form>
    <div v-else>
       <!-- TODO: show a proper "loading ... " sign and use the "requests" feature of store instead of this v-if check -->
@@ -37,33 +41,42 @@ export default {
          })
       }
    },
+   data(){
+      return {
+         form_state : null
+      }
+   },
    computed:{
-      chapter(){
-         return this.$store.state.chapters.map[this.chapterId]
+      original_chapter(){
+         return this.$store.state.chapters.map[this.chapterId];
       },
-      safeFormState(){
-         //makes "chapter" safe to modify 
-         return Object.assign({},this.chapter)
+      chapter:{
+         get(){
+            return this.form_state ? this.form_state : this.original_chapter;
+         },
+         set(value){
+            this.form_state = value
+         }
       },
       header(){
          return `Editing '${this.chapter.title}'`
       }
    },
    methods: {
-      async onSubmit(form_state){
-         let {success,message,chapter} = await this.$store.dispatch("chapters/update",{
+      async onSubmit(){
+         let {success,message,updated_chapter} = await this.$store.dispatch("chapters/update",{
             story_id : this.storyId, 
             chapter_id:this.chapterId,
-            chapter_details: form_state 
+            chapter_details: this.chapter 
          })
          if (success) {
-            this.$emit("success", chapter)
+            this.$emit("success", updated_chapter)
          } else {
             this.$emit("fail", {message})
          }
       },
-      onCancel(form_state){
-         this.$emit("cancel", form_state)
+      onCancel(){
+         this.$emit("cancel", this.chapter)
       }
    }
 }

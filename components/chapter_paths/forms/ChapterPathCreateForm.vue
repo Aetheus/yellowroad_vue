@@ -29,11 +29,9 @@
       <template v-if="isToNewChapter" slot="after-toChapterDropdown">
          <hr>
          <div class="embedded-chapter-form-wrapper has-background-light box">
-            <chapter-base-form            
+            <chapter-base-form       
+               v-model="newChapter"
                class="embedded-chapter-form"
-               v-on:submit="onChapterSubmit"
-               v-on:cancel="onChapterCancel"
-               :form-settings = "formSettings"
                header = "New Chapter"
             >              
             </chapter-base-form>
@@ -62,7 +60,8 @@ export default {
    },
    data(){
       return {
-         isToNewChapter : true
+         isToNewChapter : true,
+         newChapter:{}
       }
    },
    methods:{
