@@ -1,5 +1,7 @@
 <template>
-   <chapter-path-create-form>
+   <chapter-path-create-form
+      :storyId="story_id"
+   >
    </chapter-path-create-form>
 </template>
 
@@ -9,7 +11,12 @@ import ChapterPathCreateForm from "@/components/chapter_paths/forms/ChapterPathC
 
 export default {
    name:"ChapterPathsCreatePage",
-   components:{ChapterPathCreateForm}
+   components:{ChapterPathCreateForm},
+   async asyncData({ params, error, store }) {
+      return {
+         story_id: parseInt(params.story_id)
+      }
+   },
 }
 </script>
 

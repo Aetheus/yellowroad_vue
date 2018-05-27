@@ -4,44 +4,57 @@
       header="Creating Chapter Path"
       :storyId="storyId"
       :formSettings="{ hide_to_chapter_id : isToNewChapter}"
-      :initialFormState="{
-         effects : {}, requirements : {}, description : ''
-      }"
+      v-model="newChapterPath"
    >
-      <template slot="before-toChapterDropdown">
+      <template slot="before-fromChapterDropdown">
          <div class="field is-horizontal">
             <div class="field-label">
                <label class="label">Is Path To New Chapter?</label>
             </div>
             <div class="field-body">
-               <div class="tabs is-toggle">
+               <div class="tabs is-toggle is-small">
                   <ul>
-                     <li @click.stop.prevent="setToChapterSetting(true)" :class="{'is-active':isToNewChapter}"><a>New Chapter</a></li>
-                     <li @click.stop.prevent="setToChapterSetting(false)" :class="{'is-active':!isToNewChapter}"><a>Existing Chapter</a></li>
+                     <li @click.stop.prevent="setToChapterSetting(true)" :class="{'is-active':isToNewChapter}">
+                        <!-- <a>New Chapter</a> -->
+                        <a>Yes</a>
+                     </li>
+                     <li @click.stop.prevent="setToChapterSetting(false)" :class="{'is-active':!isToNewChapter}">
+                        <!-- <a>Existing Chapter</a> -->
+                        <a>No</a>
+                     </li>
                   </ul>                        
                </div>
             </div>
          </div>
       </template>
 
-      
-
       <template v-if="isToNewChapter" slot="after-toChapterDropdown">
          <hr>
-         <div class="embedded-chapter-form-wrapper has-background-light box">
-            <chapter-base-form       
-               v-model="newChapter"
-               class="embedded-chapter-form"
-               header = "New Chapter"
-            >              
-            </chapter-base-form>
+         <!-- embedded-chapter-form-wrapper  -->
+         <div class="columns is-centered">
+            <div class="column is-four-fifths has-background-light box">
+               <chapter-base-form       
+                  v-model="newChapter"
+                  class="embedded-chapter-form"
+                  :header = "newChapter.title ? newChapter.title : 'New Chapter'"
+               >              
+               </chapter-base-form>
+            </div>
          </div>
+         
          <hr>
       </template>
-      
-      
-      
 
+      <template slot="before-End">
+         <div class="field is-grouped is-grouped-right">
+            <p class="control">
+               <a @click="onSubmit" class="button is-primary"> Submit </a>
+            </p>
+            <p class="control">
+               <a @click="onCancel" class="button is-light"> Cancel </a>
+            </p>
+         </div>
+      </template>
    </chapter-path-base-form>
 </template>
 
@@ -61,26 +74,30 @@ export default {
    data(){
       return {
          isToNewChapter : true,
-         newChapter:{}
+         newChapter:{},
+         newChapterPath: {
+            effects : {}, 
+            requirements : {}, 
+            description : ''
+         }
       }
    },
    methods:{
       setToChapterSetting(isToNewChapter){
          this.isToNewChapter = isToNewChapter;
+      },
+      onSubmit(){
+
+      },
+      onCancel(){
+
       }
    }
 
 }
 </script>
 
-<style>
- .chapter-path-create-form .embedded-chapter-form-wrapper{
-    width:100%;
- }
- .chapter-path-create-form .embedded-chapter-form-wrapper > .embedded-chapter-form{
-    width:90%;
-    margin:auto;
- }
+<style> 
 </style>
 
 
