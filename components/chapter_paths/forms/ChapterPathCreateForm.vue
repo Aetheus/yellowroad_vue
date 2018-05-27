@@ -6,7 +6,7 @@
       :formSettings="{ hide_to_chapter_id : isToNewChapter}"
       v-model="newChapterPath"
    >
-      <template slot="before-fromChapterDropdown">
+      <template slot="before-toChapterDropdown">
          <div class="field is-horizontal">
             <div class="field-label">
                <label class="label">Is Path To New Chapter?</label>
@@ -29,7 +29,7 @@
       </template>
 
       <template v-if="isToNewChapter" slot="after-toChapterDropdown">
-         <hr>
+         <br>
          <!-- embedded-chapter-form-wrapper  -->
          <div class="columns is-centered">
             <div class="column is-four-fifths has-background-light box">
@@ -42,7 +42,6 @@
             </div>
          </div>
          
-         <hr>
       </template>
 
       <template slot="before-End">

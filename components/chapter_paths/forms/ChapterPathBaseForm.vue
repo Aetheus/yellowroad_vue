@@ -18,6 +18,7 @@
       </div>
    </div>
 
+   <hr>
    <slot name="before-fromChapterDropdown"></slot>
    <div v-if="!settings.hide_from_chapter_id" class="field is-horizontal">
       <div class="field-label">
@@ -52,6 +53,7 @@
       </div>
    </div>
    <slot name="after-toChapterDropdown"></slot>
+   <hr>
 
    <div class="field is-horizontal">
       <div class="field-label">
@@ -78,6 +80,7 @@
          >   
       </div>
    </div>
+   <hr>
 
    <slot name="before-End"></slot>
    <br>
