@@ -32,7 +32,7 @@
          <br>
          <!-- embedded-chapter-form-wrapper  -->
          <div class="columns is-centered">
-            <div class="column is-four-fifths has-background-light box">
+            <div class="column is-11 has-background-light box">
                <chapter-base-form       
                   v-model="newChapter"
                   class="embedded-chapter-form"
@@ -85,11 +85,32 @@ export default {
       setToChapterSetting(isToNewChapter){
          this.isToNewChapter = isToNewChapter;
       },
-      onSubmit(){
-
+      async onSubmit(){
+         if (this.isToNewChapter) {
+            const { success, message, chapter } = await this.$store.dispatch("chapters/create", {
+               story_id: this.storyId,
+               chapter: this.newChapter,
+               chapter_path: this.newChapterPath
+            });
+            if (success) {
+               this.$emit("success", chapter);
+            } else {
+               this.$emit("fail", { message });
+            }
+         } else {
+            const { success, message, chapter_path } = await this.$store.dispatch("chapter_paths/createChapterPath", {
+               story_id: this.storyId,
+               chapter_path: this.newChapterPath
+            });
+            if (success) {
+               this.$emit("success", chapter_path);
+            } else {
+               this.$emit("fail", { message });
+            }
+         }
       },
       onCancel(){
-
+         this.$emit("cancel", {});
       }
    }
 

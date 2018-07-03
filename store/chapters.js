@@ -36,7 +36,6 @@ export const actions = {
                 chapter: response.chapter
             };
         }catch (err) {
-
             let message = ""
             if (err.response && err.response.data && err.response.data.message) {
                 message = err.response.data.message;
@@ -44,13 +43,9 @@ export const actions = {
                 message = err.toString()
             }
 
-        commit("alert/add", { type: ALERTS.ERROR, message: message }, { root: true })
-
-        return {
-            success : false,
-            message
+            commit("alert/add", { type: ALERTS.ERROR, message: message }, { root: true })
+            return { success: false, message }
         }
-      }
    },
 
    async update({ commit, dispatch }, { chapter_id, story_id, chapter_details} ) {
