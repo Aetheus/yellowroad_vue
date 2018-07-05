@@ -73,11 +73,11 @@
          <label class="label">Requirements</label>
       </div>
       <div class="field-body">
-         <input 
-            name="requirement" class="input" type="text" placeholder="Requirements" 
+         <requirements-editor
             :value="value.requirements"
             @input="(eve) => {updateField('requirements', eve.target.value)}"
-         >   
+         >
+         </requirements-editor>
       </div>
    </div>
    <hr>
@@ -90,6 +90,7 @@
 <script>
 import ChapterDropdown from "@/components/chapters/ChapterDropdown"
 import EffectsEditor from "@/components/chapter_paths/forms/EffectsEditor"
+import RequirementsEditor from "./requirements/RequirementsEditor"
 
 const DEFAULT_SETTINGS = {
    hide_to_chapter_id : false,
@@ -106,7 +107,7 @@ const DEFAULT_STATE = {
 
 export default {
    name: "ChapterPathBaseForm",
-   components: {ChapterDropdown,EffectsEditor},
+   components: {ChapterDropdown,EffectsEditor,RequirementsEditor},
    props : {
       value :{type: Object},
       storyId:{type: Number},
