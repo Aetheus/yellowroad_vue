@@ -8,7 +8,10 @@ export const state = () => ({
 export const mutations = {
    setChapterPath(store, chapterPath){
       // stories/:book_id/chapter_paths
-      store.byStoryId = { ...store.byStoryId, }
+      store.byId = { 
+         ...store.byId,
+         [chapterPath.id]: chapterPath
+      }
    }
 }
 
