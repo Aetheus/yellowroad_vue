@@ -1,6 +1,9 @@
 <template>
    <div>
-      <properties-editor :value="value.properties">
+      <properties-editor
+         :value="value.properties"
+         @input="updateProperties"
+      >
       </properties-editor>
    </div>
 </template>
@@ -28,10 +31,15 @@ export default {
       }
    },
    methods: {
+      updateProperties(properties){
+         const requirements = {...this.value};
+         requirements.properties = properties;
+         emitSchema(requirements);
+      },
       emitSchema(requirements){
          this.$emit("input", {
             ...this.defaultJsonSchema,
-            ...requirements
+            ...this.value
          });
       }
    }

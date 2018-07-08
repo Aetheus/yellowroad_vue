@@ -75,7 +75,7 @@
       <div class="field-body">
          <requirements-editor
             :value="value.requirements"
-            @input="(eve) => {updateField('requirements', eve.target.value)}"
+            @input="(val) => {updateField('requirements', val)}"
          >
          </requirements-editor>
       </div>

@@ -1,18 +1,29 @@
 <template>
    <div class="requirements-properties-editor">
       <button @click="addProperty">Add Property</button>
-      <table class="table">
-         <tr v-for="(val, key) in value" :key="key">
-            <td> {{key}} </td>
-            <td> {{ JSON.stringify(val) }} </td>
+      <table>
+         <tr v-for="(property, propertyName) in value" :key="propertyName" 
+            class="table is-bordered is-stripped"
+         >
+            <td> {{propertyName}} </td>
+            <td>
+               <any-property                   
+                  :value="property"
+                  @input="(val) => { updateProperty(propertyName, val) }"
+               > 
+               </any-property>
+            </td>
          </tr>
-      </table>
+      </table>      
    </div>
 </template>
 
 <script>
+import AnyProperty from "./properties/AnyProperty"
+
 export default {
    name: "PropertiesEditor",
+   components: {AnyProperty},
    props: {
       value: {type:Object}
    },
@@ -39,6 +50,12 @@ export default {
          
          this.$emit("input", properties)
       },
+      updateProperty(propertyName, newValue) {
+         const properties = { ...this.value };
+         properties[propertyName] = newValue;
+
+         this.$emit("input", properties);
+      }
    }
 }
 </script>
