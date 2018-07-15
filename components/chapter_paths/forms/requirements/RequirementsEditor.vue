@@ -34,12 +34,12 @@ export default {
       updateProperties(properties){
          const requirements = {...this.value};
          requirements.properties = properties;
-         emitSchema(requirements);
+         this.emitSchema(requirements);
       },
       emitSchema(requirements){
          this.$emit("input", {
             ...this.defaultJsonSchema,
-            ...this.value
+            ...requirements
          });
       }
    }

@@ -41,13 +41,12 @@ export default {
          return pathname;
       }
    },
-   method:{
+   methods:{
       addProperty(){
          const properties = { ...this.value };
          const latestPropName = this.latestDefaultPropName;
 
-         properties[latestPropName] = {};
-         
+         properties[latestPropName] = { "const": "" };
          this.$emit("input", properties)
       },
       updateProperty(propertyName, newValue) {

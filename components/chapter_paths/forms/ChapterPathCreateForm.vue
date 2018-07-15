@@ -76,7 +76,9 @@ export default {
          newChapter:{},
          newChapterPath: {
             effects : {}, 
-            requirements : {}, 
+            requirements : {
+               properties : {}
+            }, 
             description : ''
          }
       }
