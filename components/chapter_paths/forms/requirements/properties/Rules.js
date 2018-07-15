@@ -3,11 +3,20 @@ const TYPES = {
    NUMBER: "NUMBER"
 }
 
+//courtesy of MDN (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat)
+function filterFloat(value) {
+   if (/^(\-|\+)?([0-9]+(\.[0-9]+)?|Infinity)$/.test(value)){
+      return Number(value);
+   }
+   return NaN;
+}
+
 function autoCast(value, type_whitelist = []){
    let details;
-
-   if (!isNaN(value)) {
-      details = { value: parseFloat(value), type: TYPES.NUMBER }
+   const numeric_value = filterFloat(value);
+   
+   if (!isNaN(numeric_value)) {
+      details = { value: numeric_value, type: TYPES.NUMBER }
    } else {
       details = { value, type: TYPES.STRING }
    }
