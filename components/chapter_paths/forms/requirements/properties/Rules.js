@@ -3,11 +3,11 @@ const TYPES = {
    NUMBER: "NUMBER"
 }
 
-function autoCast(val, type_whitelist = []){
+function autoCast(value, type_whitelist = []){
    let details;
 
-   if (!isNaN(val)) {
-      details = { value: parseFloat(val), type: TYPES.NUMBER }
+   if (!isNaN(value)) {
+      details = { value: parseFloat(value), type: TYPES.NUMBER }
    } else {
       details = { value, type: TYPES.STRING }
    }
