@@ -1,3 +1,5 @@
+import ALERTS from '@/constants/alert-types';
+
 export const state = () => ({
    queue : []
 });
@@ -17,6 +19,18 @@ export const mutations = {
 }
 
 export const actions = {
+   async errorAlert({commit},err) {
+      let message = ""
+      if (err.response && err.response.data && err.response.data.message) {
+         message = err.response.data.message;
+      } else {
+         message = err.toString()
+      }
+
+      commit("add", { type: ALERTS.ERROR, message: message })
+
+      return message;
+   }
 }  
 
 

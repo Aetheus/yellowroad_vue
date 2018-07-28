@@ -54,19 +54,10 @@ export const actions = {
             token : data.token
          };
       } catch(err){         
-        let message = "";
-        if (err.response && err.response.data && err.response.data.message){
-          message = err.response.data.message;
-        } else {
-          message = "Unknown error occurred while attempting to login"
-        }
-
-        commit("alert/add", { type: ALERTS.ERROR, message:message}, {root:true})
+        let message = await dispatch("alert/errorAlert", err, { root: true })
         commit("setLoginAttemptFailed", message);
 
-        return {
-          login_success: false
-        };
+        return { login_success: false };
       }
    },
 

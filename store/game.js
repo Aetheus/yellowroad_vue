@@ -51,20 +51,25 @@ export const actions = {
       let to_chapter_id = chapter_path.to_chapter_id;
       let chapter_path_id = chapter_path.id
 
-      let result = (
-         await this.$axios.post(`/stories/${story_id}/chapters/${to_chapter_id}/game`,{
-            save: current_save,
-            chapter_path_id
-         })
-      ).data
+      try {
+         let result = (
+            await this.$axios.post(`/stories/${story_id}/chapters/${to_chapter_id}/game`, {
+               save: current_save,
+               chapter_path_id
+            })
+         ).data
 
-      commit("pushNewState", {
-         story_id,
-         chapter_id: to_chapter_id,
-         chapter_path_id,
-         save: result.data.save
-      })
-      commit("chapters/setChapter", result.data.chapter, {root:true})
+         commit("pushNewState", {
+            story_id,
+            chapter_id: to_chapter_id,
+            chapter_path_id,
+            save: result.data.save
+         })
+         commit("chapters/setChapter", result.data.chapter, { root: true })
+      } catch (err) {
+         await dispatch("alert/errorAlert", err, { root: true })
+      }
+      
    },
    async beginGame(
       {commit, dispatch},

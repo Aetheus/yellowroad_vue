@@ -36,14 +36,8 @@ export const actions = {
                 chapter: response.chapter
             };
         }catch (err) {
-            let message = ""
-            if (err.response && err.response.data && err.response.data.message) {
-                message = err.response.data.message;
-            } else {
-                message = err.toString()
-            }
-
-            commit("alert/add", { type: ALERTS.ERROR, message: message }, { root: true })
+            let message = await dispatch("alert/errorAlert", err, { root: true })
+            
             return { success: false, message }
         }
    },
@@ -58,14 +52,7 @@ export const actions = {
             chapter: response.chapter
          };
       } catch (err) {
-         let message = ""
-         if (err.response && err.response.data && err.response.data.message) {
-            message = err.response.data.message;
-         } else {
-            message = err.toString()
-         }
-
-        commit("alert/add", { type: ALERTS.ERROR, message: message }, { root: true })
+         let message = await dispatch("alert/errorAlert", err, { root: true })
 
          return {
             success: false,
