@@ -22,8 +22,8 @@ export default {
    computed: {
       defaultJsonSchema(){
          return {
-            "title": "A registration form",
-            "description": "A simple form example.",
+            "title": "Default title",
+            "description": "Default description",
             "type": "object",
             "properties": {},
             "required": []
@@ -34,6 +34,7 @@ export default {
       updateProperties(properties){
          const requirements = {...this.value};
          requirements.properties = properties;
+         requirements.required = Object.keys(properties)
          this.emitSchema(requirements);
       },
       emitSchema(requirements){
