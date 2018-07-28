@@ -47,10 +47,10 @@ export default {
          const effects = this.value;
 
          let counter = 1;
-         let pathname = `/path_${counter}`;
+         let pathname = `/prop_${counter}`;
          while(effects[pathname]){
             counter++;
-            pathname = `/path_${counter}`
+            pathname = `/prop_${counter}`
          }
 
          return pathname;
@@ -63,7 +63,7 @@ export default {
 
          effects[pathname] = {op:"SET",arg:"your value here"};
 
-         this.$emit("input", effects)
+         this.emitInput(effects)
       },
       updatePathName(originalPathName,newPathName){
          if (originalPathName != newPathName) {
@@ -73,7 +73,7 @@ export default {
             effects[newPathName] = effectAtPath;
             delete effects[originalPathName];
 
-            this.$emit("input", effects)
+            this.emitInput(effects)
          }
       },
       updateEffect(path, change){
@@ -82,15 +82,18 @@ export default {
 
          effects[path] = { ...currentEffectAtPath, ...change }
 
-         this.$emit("input", effects)
+         this.emitInput(effects)
       },
       deleteEffect(path){
          const effects = {...this.value};
 
          delete effects[path];
 
-         this.$emit("input", effects)
+         this.emitInput(effects)
       },
+      emitInput(effects) {
+         this.$emit("input", effects)
+      }
    }
 
 }
