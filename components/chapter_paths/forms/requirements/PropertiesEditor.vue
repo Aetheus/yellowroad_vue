@@ -2,16 +2,21 @@
    <div class="requirements-properties-editor">
       <button @click="addProperty">Add Property</button>
       <table>
-         <tr v-for="(property, propertyName) in value" :key="propertyName" 
+         <tr v-for="(propertyRule, propertyName) in value" :key="propertyName" 
             class="table is-bordered is-stripped"
          >
             <td> {{propertyName}} </td>
             <td>
                <any-property                   
-                  :value="property"
+                  :value="propertyRule"
                   @input="(val) => { updateProperty(propertyName, val) }"
                > 
                </any-property>
+            </td>
+            <td>
+               <button @click="() => {removeProperty(propertyName)}" >
+                  Delete
+               </button>
             </td>
          </tr>
       </table>      
@@ -52,6 +57,12 @@ export default {
       updateProperty(propertyName, newValue) {
          const properties = { ...this.value };
          properties[propertyName] = newValue;
+
+         this.$emit("input", properties);
+      },
+      removeProperty(propertyName) {
+         const properties = { ...this.value };
+         delete properties[propertyName];
 
          this.$emit("input", properties);
       }
